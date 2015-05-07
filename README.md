@@ -1,4 +1,4 @@
-# console-capture
+# console-trap
 
 A simple wrapper for console allowing the capturing calls to all methods on the
 console object.
@@ -13,12 +13,12 @@ that write to the console as a method of feedback
 
 ## Installation
 
-`npm install console-capture`
+`npm install console-trap`
 
 ## Example
 
 ```js
-var console = require("console-capture")
+var console = require("console-trap")
 
 console.log("hello world!")
 console.log("second call!")
