@@ -1,6 +1,6 @@
 {
   "name": "console-trap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple wrapper for Console allowing the capturing and testing of calls to all methods on the console object.",
   "main": "index.js",
   "scripts": {
