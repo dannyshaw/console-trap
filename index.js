@@ -1,6 +1,8 @@
 /* eslint no-console: 0 */
 function ConsoleTrap() {
+  var originalMethod;
   var _this = this;
+
   this._originalConsole = global.console;
   this.enabled = true;
   this.buffers = {};
@@ -39,7 +41,6 @@ function ConsoleTrap() {
     };
 
     wrapper.flush = function() {
-
       var newBufferOrder = [];
 
       _this.buffers[method].forEach(function(callArgs) {
@@ -61,10 +62,10 @@ function ConsoleTrap() {
   }
 
   //wrap all available console methods
-  for (let method in this._originalConsole) {
-    if (typeof this._originalConsole[method] === 'function') {
-      this.buffers[method] = [];
-      this[method] = createWrapper(method);
+  for (originalMethod in this._originalConsole) {
+    if (typeof this._originalConsole[originalMethod] === 'function') {
+      this.buffers[originalMethod] = [];
+      this[originalMethod] = createWrapper(originalMethod);
     }
   }
 
@@ -87,9 +88,11 @@ ConsoleTrap.prototype = {
     }
   },
   flushAll() {
+    var callArgs;
     var _this = this;
+
     this.buffersOrder.forEach(function(conCall) {
-      let callArgs = _this.buffers[conCall.method][conCall.index];
+      callArgs = _this.buffers[conCall.method][conCall.index];
       _this._originalConsole[conCall.method].apply(_this._originalConsole, callArgs);
     });
     this.buffersOrder = [];
