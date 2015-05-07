@@ -72,13 +72,13 @@ function ConsoleTrap() {
 }
 
 ConsoleTrap.prototype = {
-  disable() {
+  disable: function() {
     this.enabled = false;
   },
-  enable() {
+  enable: function() {
     this.enabled = true;
   },
-  empty() {
+  empty: function() {
     var methodName;
     for (methodName in this.buffers) {
       // console.log(buffer);
@@ -87,7 +87,7 @@ ConsoleTrap.prototype = {
       }
     }
   },
-  flushAll() {
+  flushAll: function() {
     var callArgs;
     var _this = this;
 
