@@ -3,12 +3,12 @@
 A simple wrapper for console allowing the capturing calls to all methods on the
 console object.
 
-It will create a wrapper for every method that the console object has in the 
-browser/environment it is run under and save all calls against the object
-to a buffer that can be queried for testing, or other, purposes.
+Creates a wrapper for every method in the console object.
+Saves all calls against the object to a buffer that can be queried for testing
+or other purposes.
 
-I wrote this to facilitate the testing of modules used in design/development 
-that write to the console as a method of feedback
+I wrote this to facilitate the testing of devtools used in design/development
+that log/warn to console as a method of feedback
 
 
 ## Installation
@@ -17,43 +17,37 @@ that write to the console as a method of feedback
 
 ## Example
 
+CommonJS
+
 ```js
-var console = require("console-trap")
+var Console = require("console-trap")
 
-console.log("hello world!")
-console.log("second call!")
+Console.log("hello world!")
+Console.log("second call!")
 
-console.log.snapshot().getCall(0).getArg(0);
+Console.log.snapshot().getCall(0).getArg(0);
 //outputs: "hello world!"
 ```
 
+## Note
+
+The object is instantiated as a global varable named Console. Therefore it is 
+a singleton and the same instance will be returned no matter where you 
+call it from in separate source files. The true order of calls will 
+be preserved.
+
 ## Api
 
-Disable the call to original console method
-```js
-console.disable();
-```
-
-Enable the call to original console method [on by default]
-```js
-console.enable();
-```
 
 Empty the buffer:
 ```js
-console.log.empty();
+Console.log.empty();
 ```
 
-Flush a buffer
+Flush all calls to this method to the original console and empty the buffer
 ```js
-console.log.flush();
+Console.log.flush();
 ```
-
-Flush all buffers to console (in order called)
-```js
-console.flushAll();
-```
-
 
 
 Each console method has a snapshot method attached to it.
@@ -64,7 +58,7 @@ var snapshot = console.log.snapshot();
 //[{0: "hello world!"},{0: "second call!"}]
 ```
 
-It also can be queried for exact calls or arguments
+It also can be queried for specific calls or arguments
 ```js
 var firstCall = snapshot.getCall(0);
 //{0: "hello world!"}
@@ -72,6 +66,43 @@ var firstCall = snapshot.getCall(0);
 snapshot.getCall(1).getArg(0); or
 firstCall.getArg(0);
 //"second call!"
+
+snapshot.calls;
+//[{0: "hello world!"},{0: "second call!"}]
+
+snapshot.callCount;
+//2
+
+```
+
+
+The global Console object also has some 'master' controls.
+
+
+Disable the call to original console method.
+```js
+Console.disable();
+```
+
+Enable the call to original console method [on by default]
+```js
+Console.enable();
+```
+
+Flush all buffers to console (in order called, usefull with .disable())
+```js
+Console.flushAll();
+```
+
+Override the default console object
+```js
+Console.hijack();
+```
+
+Return the console object back to its original
+```js
+Console.noConflict();
+```
 
 ## Contributors
 
