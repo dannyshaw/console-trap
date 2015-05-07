@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "no-unused-expressions": 0
+  },
+  "globals": {
+    "describe": 0,
+    "it": 0,
+    "beforeEach": 0,
+    "afterEach": 0
+  }
+}
