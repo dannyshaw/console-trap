@@ -123,20 +123,21 @@ describe('ConsoleTrap', function() {
     var original = console;
     expect(original).to.equal(console);
     expect(Console).to.not.equal(console);
-    // Console.hijack();
     Console.enable();
-    // expect(console).to.equal(Console);
-    // expect(original).to.not.equal(console);
-    // console.log("first argument");
-    // expect(console.log.snapshot().callCount).to.equal(1);
 
+    //TODO work out how to test this properly as actually
+    //overriding console breaks the tester.
+/*
+    Console.hijack();
+    expect(console).to.equal(Console);
+    expect(original).to.not.equal(console);
+    console.log("first argument");
+    expect(console.log.snapshot().callCount).to.equal(1);
+*/
     //return original
     Console.noConflict();
     expect(original).to.equal(console);
     expect(Console).to.not.equal(console);
   });
-
-
-
 });
 
