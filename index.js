@@ -15,7 +15,7 @@ function ConsoleTrap() {
       _this.buffers[method].push(arguments);
       _this.buffersOrder.push({method: method, index: _this.buffers[method].length-1});
       if (_this.enabled) {
-        this._originalConsole[method].apply(this._originalConsole, arguments);
+        _this._originalConsole[method].apply(_this._originalConsole, arguments);
       }
     };
 
